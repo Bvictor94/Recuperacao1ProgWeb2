@@ -1,0 +1,22 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root@localhost:3306/loja_virtual"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Produto {
+  id          Int        @id @default(autoincrement())
+  nome        String
+  preco       Float
+  quantidade  Int
+  carrinhos   Carrinho[] @relation("CarrinhoProdutos")
+}
+
+model Carrinho {
+  id         Int       @id @default(autoincrement())
+  produtos   Produto[] @relation("CarrinhoProdutos")
+  totalPreco Float    @default(0)
+}
